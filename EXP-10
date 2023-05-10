@@ -1,0 +1,64 @@
+mysql> use students;
+Database changed
+mysql> create table students(name varchar(4),regno int,dob date,gender char(1));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into students(name,regno,dob,gender) values('ravi',192211456,"2004-03-04",'m');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into students(name,regno,dob,gender) values('manu',192211728,"2004-04-01",'m');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students(name,regno,dob,gender) values('ramu',192211357,"2006-07-23",'m');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from students;
++------+-----------+------------+--------+
+| name | regno     | dob        | gender |
++------+-----------+------------+--------+
+| ravi | 192211456 | 2004-03-04 | m      |
+| manu | 192211728 | 2004-04-01 | m      |
+| ramu | 192211357 | 2006-07-23 | m      |
++------+-----------+------------+--------+
+3 rows in set (0.02 sec)
+
+mysql> create view students_view as
+    -> select regno,name,dob from students;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from students;
++------+-----------+------------+--------+
+| name | regno     | dob        | gender |
++------+-----------+------------+--------+
+| ravi | 192211456 | 2004-03-04 | m      |
+| manu | 192211728 | 2004-04-01 | m      |
+| ramu | 192211357 | 2006-07-23 | m      |
++------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from students_view;
++-----------+------+------------+
+| regno     | name | dob        |
++-----------+------+------------+
+| 192211456 | ravi | 2004-03-04 |
+| 192211728 | manu | 2004-04-01 |
+| 192211357 | ramu | 2006-07-23 |
++-----------+------+------------+
+3 rows in set (0.01 sec)
+
+mysql> create view students_view as
+    -> select gender,name,dob from students;
+ERROR 1050 (42S01): Table 'students_view' already exists
+mysql> create view students_name as
+    -> select name,gender,dob from students;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from students_name;
++------+--------+------------+
+| name | gender | dob        |
++------+--------+------------+
+| ravi | m      | 2004-03-04 |
+| manu | m      | 2004-04-01 |
+| ramu | m      | 2006-07-23 |
++------+--------+------------+
+3 rows in set (0.00 sec)
